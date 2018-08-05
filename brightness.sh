@@ -1,5 +1,5 @@
 #!/bin/sh
-CURRBRIGHT=$(xrandr --current --verbose | grep -m 1 'Brightness:' | cut -f2- -d:)
+CURRBRIGHT=$(xrandr --verbose |grep $2 -A 5 |grep Brightness |grep -o '[0-9].*')
 if [ "$1" = "+" ] && [ $(echo "$CURRBRIGHT < 1" | bc) -eq 1 ] 
 then
 xrandr --output $2 --brightness $(echo "$CURRBRIGHT + 0.1" | bc)
